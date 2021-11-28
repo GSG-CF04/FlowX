@@ -21,7 +21,7 @@ Develop a website that provides weather information for any country.
 - Clicks “Allow” in the location permission prompt to give access to the website to know your location and view the weather situation in user’s area.
 - Views the weather in user's current location
 - Can scroll down to find more information about wind, humidity, UVI, and pressure.
-- Can click a search icon to search for other cities and view whether other places whether situations.
+- Can click a search icon to search for other cities and view their weather information.
 
 ## ✧ User Stories
 - As a user, I should face a greeting screen with information about the app.
@@ -39,7 +39,7 @@ Develop a website that provides weather information for any country.
 - **HTML** → Markup.
 - **CSS** → Markup Styling.
 - **JavaScript** → DOM Manipulation.
-- **GitHub** → Deploy & Code Sotre.
+- **GitHub** → Deploy & Code Store.
 - **Fetch API** → Fetch Needed Information.
 - **Visual Studio Code** → Our main text editor.
 
