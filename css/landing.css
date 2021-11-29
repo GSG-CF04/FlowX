@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 .app-title {
   text-align: center;
@@ -43,4 +44,68 @@
   margin-top: 20px;
   font-family: Sarabun;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .app-title {
+    font-size: 111px;
+  }
+  .first-slide {
+    height: 457px;
+  }
+  .app-discription {
+    font-size: 35px;
+    line-height: 1.3;
+    margin: 25px 46px;
+  }
+  .start-btn {
+    width: 280px;
+    height: 90px;
+    font-size: 41px;
+    margin-top: 26px;
+  }
+}
+@media (min-width: 992px) {
+  .app-title {
+    font-size: 136px;
+  }
+  .first-slide {
+    height: 612px;
+  }
+  .app-discription {
+    font-size: 45px;
+    line-height: 1.5;
+    margin: 40px 60px;
+  }
+  .start-btn {
+    width: 416px;
+    height: 126px;
+    font-size: 50px;
+    margin-top: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .app-title {
+    font-size: 90px;
+  }
+  .app-discription {
+    font-size: 48px;
+    line-height: 1.3;
+    margin: 40px 60px;
+    max-width: 400px;
+  }
+  .start-btn {
+    width: 387px;
+    height: 83px;
+    font-size: 50px;
+    margin-top: 30px;
+  }
+  .first-slide {
+    height: 400px;
+  }
 }
