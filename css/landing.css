@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 .container {
   background-color: #e5e5e5;
@@ -16,9 +17,9 @@
   font-family: Palanquin Dark;
   margin-top: 10px;
 }
-.first-slide {
+.image-slide {
   width: 100%;
-  height: 443px;
+  height: 331px;
 }
 .bottom-section {
   display: flex;
@@ -30,13 +31,13 @@
   color: black;
   font-size: 24px;
   line-height: 30px;
-  margin: 0 30px;
+  margin: 35px 30px;
   font-family: Rowdies;
 }
 
 .start-btn {
   width: 219px;
-  height: 78px;
+  height: 70px;
   background-color: #476771;
   color: white;
   border-radius: 20px;
@@ -50,8 +51,14 @@
   .app-title {
     font-size: 111px;
   }
-  .first-slide {
-    height: 457px;
+  .image-slide {
+    height: 465px;
+  }
+  .app-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .app-discription {
     font-size: 35px;
@@ -69,8 +76,8 @@
   .app-title {
     font-size: 136px;
   }
-  .first-slide {
-    height: 612px;
+  .image-slide {
+    height: 638px;
   }
   .app-discription {
     font-size: 45px;
@@ -79,33 +86,51 @@
   }
   .start-btn {
     width: 416px;
-    height: 126px;
+    height: 114px;
     font-size: 50px;
-    margin-top: 30px;
+    margin-top: 38px;
+  }
+  .app-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 @media (min-width: 1200px) {
   .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
   }
   .app-title {
     font-size: 90px;
   }
   .app-discription {
-    font-size: 48px;
-    line-height: 1.3;
+    font-size: 42px;
+    line-height: 1.2;
     margin: 40px 60px;
-    max-width: 400px;
+    max-width: 495px;
   }
   .start-btn {
-    width: 387px;
-    height: 83px;
-    font-size: 50px;
-    margin-top: 30px;
+    width: 312px;
+    height: 73px;
+    font-size: 42px;
+    margin-top: 35px;
   }
-  .first-slide {
+  .image-slide {
     height: 400px;
+  }
+  .app-content {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .app-title-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
