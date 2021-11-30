@@ -4,15 +4,13 @@ goButton.addEventListener('click', getLocation);
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(toHomePage);
-        
-       
+        navigator.geolocation.getCurrentPosition(toHomePage);      
     } else { 
-    
+        //TODO: what happens if user denies access?
     }
 }
 
-function toHomePage(position) {
+function toHomePage() {
     location.href = "html/home.html";
 
 }
