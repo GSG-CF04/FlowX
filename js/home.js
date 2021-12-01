@@ -9,11 +9,11 @@ weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
 let userLat, userLon, userCity;
 let apiKey = "d0139168498c4f66d3fb31b4d374f145"
-
+//load user's location weather on page load
 window.onload = function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getUserLocationWeather, showError);
-
+    //take permission to access user's location
     function getUserLocationWeather(userLocation) {
       userLat = userLocation.coords.latitude;
       userLon = userLocation.coords.longitude;
@@ -27,9 +27,8 @@ window.onload = function () {
   } else {
     alert("your browser doesn't support geographic locations")
   }
-
+  //error function to show an alert when user denies access
   function showError(error) {
-
     if (error.PERMISSION_DENIED) {
       alert("Please allow access to your location to show your weather data");
     }
