@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 var goButton = document.getElementById("start-btn");
-goButton.addEventListener('click', toHomePage);
+goButton.addEventListener("click", toHomePage);
 
 function toHomePage() {
-    location.href = "html/home.html";
-
+  location.href = "html/home.html";
 }
-=======
 let slideIndex = 0;
 let showSlide = (n) => {
   let slidesArr = document.getElementsByClassName("slider-image"); //get the vectors
@@ -32,4 +29,3 @@ setInterval(() => {
   slideIndex++;
   showSlide(slideIndex);
 }, 3000);
->>>>>>> c6f084a660991fdc83fd43ebccc42eb2e81f0ff6
