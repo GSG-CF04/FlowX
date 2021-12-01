@@ -40,13 +40,11 @@ function fetchWeatherData(searchTerm) {
                 )
                 .then((info) => info.json())
                 .then((db) => {
-                    console.log(db)
-                        ////////////////////////////
                     let currente = db.current.weather[0].main //give the weather condition 
                         //images show According to the weather 
                     let images = {
                             Rain: ["../assets/images/rainy/1.jpg", "../assets/images/rainy/2.jpg", "../assets/images/rainy/3.jpg", "../assets/images/rainy/4.jpg"],
-                            Clear: "../assets/images/clear/1.jpg",
+                            Clear: ["../assets/images/clear/1.jpg"],
                             Clouds: ["../assets/images/cloudy/1.jpg", "../assets/images/cloudy/2.jpg", "../assets/images/cloudy/3.jpg"],
                             Sunny: ["../assets/images/sunny/1.jpg", "../assets/images/sunny/2.jpg", "../assets/images/sunny/3.jpg", "../assets/images/sunny/4.jpg"],
                             Snow: ["../assets/images/snowy/1.jpg", "../assets/images/snowy/2.jpg", "../assets/images/snowy/3.jpg", "../assets/images/snowy/4.jpg"],
@@ -74,8 +72,9 @@ function fetchWeatherData(searchTerm) {
                             describ = images.Clear
                             break;
                     }
+                    //call the function when load the page
                     window.onload = randomImages()
-
+                        //the function well give the random images
                     function randomImages() {
                         let random = Math.floor(Math.random() * describ.length)
                         document.querySelector("img").src = describ[random]
