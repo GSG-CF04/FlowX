@@ -42,7 +42,8 @@ function fetchWeatherData(searchTerm) {
                 .then((db) => {
                     console.log(db)
                         ////////////////////////////
-                    let currente = db.current.weather[0].main
+                    let currente = db.current.weather[0].main //give the weather condition 
+                        //images show According to the weather 
                     let images = {
                         Rain: ["../assets/images/rainy/1.jpg", "../assets/images/rainy/2.jpg", "../assets/images/rainy/3.jpg", "../assets/images/rainy/4.jpg"],
                         Clear: "../assets/images/clear/1.jpg",
@@ -53,33 +54,26 @@ function fetchWeatherData(searchTerm) {
                     }
                     let describ = "";
                     switch (true) {
-                        case currente == "Clouds":
+                        case current == "Clouds":
                             describ = images.Clouds
                             break;
-                        case currente == "Rain":
+                        case current == "Rain":
                             describ = images.Rain
                             break;
-                        case currente == "Windy":
+                        case current == "Windy":
                             describ = images.Windy
                             break;
-                        case currente == "Sunny":
+                        case current == "Sunny":
                             describ = images.Sunny
                             break;
-                        case currente == "Snow":
+                        case current == "Snow":
                             describ = images.Snow
                             break;
-                        case currente == "Clear":
+                        case current == "Clear":
                             describ = images.Clear
                             break;
                     }
-                    // console.log(describ, 11);
-                    window.onload = randomImages()
 
-                    function randomImages() {
-                        let random = Math.floor(Math.random() * describ.length)
-                        console.log(random, 55555555);
-                        document.querySelector("img").src = describ[random]
-                    }
                     ////////////////////////////
                     currentDayData = db.current;
                     dailyData = db.daily.slice(1, 7);
