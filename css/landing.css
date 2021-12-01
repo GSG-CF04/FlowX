@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: #e5e5e5;
 }
 .container {
   background-color: #e5e5e5;
@@ -43,8 +44,10 @@
   border-radius: 20px;
   font-size: 36px;
   margin-top: 20px;
+  padding-bottom: 10px;
   font-family: Sarabun;
   border: none;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
