@@ -45,33 +45,40 @@ function fetchWeatherData(searchTerm) {
                     let currente = db.current.weather[0].main //give the weather condition 
                         //images show According to the weather 
                     let images = {
-                        Rain: ["../assets/images/rainy/1.jpg", "../assets/images/rainy/2.jpg", "../assets/images/rainy/3.jpg", "../assets/images/rainy/4.jpg"],
-                        Clear: "../assets/images/clear/1.jpg",
-                        Clouds: ["../assets/images/cloudy/1.jpg", "../assets/images/cloudy/2.jpg", "../assets/images/cloudy/3.jpg"],
-                        Sunny: ["../assets/images/sunny/1.jpg", "../assets/images/sunny/2.jpg", "../assets/images/sunny/3.jpg", "../assets/images/sunny/4.jpg"],
-                        Snow: ["../assets/images/snowy/1.jpg", "../assets/images/snowy/2.jpg", "../assets/images/snowy/3.jpg", "../assets/images/snowy/4.jpg"],
-                        Windy: ["../assets/images/windy/1.jpg", "../assets/images/windy/2.jpg", "../assets/images/windy/3.jpg", "../assets/images/windy/4.jpg"]
-                    }
+                            Rain: ["../assets/images/rainy/1.jpg", "../assets/images/rainy/2.jpg", "../assets/images/rainy/3.jpg", "../assets/images/rainy/4.jpg"],
+                            Clear: "../assets/images/clear/1.jpg",
+                            Clouds: ["../assets/images/cloudy/1.jpg", "../assets/images/cloudy/2.jpg", "../assets/images/cloudy/3.jpg"],
+                            Sunny: ["../assets/images/sunny/1.jpg", "../assets/images/sunny/2.jpg", "../assets/images/sunny/3.jpg", "../assets/images/sunny/4.jpg"],
+                            Snow: ["../assets/images/snowy/1.jpg", "../assets/images/snowy/2.jpg", "../assets/images/snowy/3.jpg", "../assets/images/snowy/4.jpg"],
+                            Windy: ["../assets/images/windy/1.jpg", "../assets/images/windy/2.jpg", "../assets/images/windy/3.jpg", "../assets/images/windy/4.jpg"]
+                        }
+                        //Compare the weather with the key of object
                     let describ = "";
                     switch (true) {
-                        case current == "Clouds":
+                        case currente == "Clouds":
                             describ = images.Clouds
                             break;
-                        case current == "Rain":
+                        case currente == "Rain":
                             describ = images.Rain
                             break;
-                        case current == "Windy":
+                        case currente == "Windy":
                             describ = images.Windy
                             break;
-                        case current == "Sunny":
+                        case currente == "Sunny":
                             describ = images.Sunny
                             break;
-                        case current == "Snow":
+                        case currente == "Snow":
                             describ = images.Snow
                             break;
-                        case current == "Clear":
+                        case currente == "Clear":
                             describ = images.Clear
                             break;
+                    }
+                    window.onload = randomImages()
+
+                    function randomImages() {
+                        let random = Math.floor(Math.random() * describ.length)
+                        document.querySelector("img").src = describ[random]
                     }
 
                     ////////////////////////////
