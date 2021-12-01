@@ -17,84 +17,27 @@ inputField.addEventListener("keypress", (e) => {
     }
   }
 });
-////////////////////
+////////////////////fetch the API of  the city and cuntry
 fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
     .then(
-        e => e.json()
+        e => e.json()//json the data
     )
     .then(data1 => {
-        let arr = []
+        let arr = []//make the emputy array to push the data to it
+        //for loop to push data
         for (key of data1.data) {
             arr.push(key.city)
             arr.push(key.country)
         }
+        //to remove the same data 
         let seto = [...new Set(arr)]
-            //             // console.log(seto)
+        //select the element
         const searchWrapper = document.querySelector(".input-parent");
         const inputBox = searchWrapper.querySelector("input");
         const suggBox = document.querySelector(".recommends");
-        // console.log(searchWrapper)
-        // console.log(inputBox)
-        // console.log(suggBox)
-        inputBox.addEventListener("click", showList)
 
-        function showList() {
-            let arr = seto.map(qq => {
-                return qq = '<span>' + qq + '</span>'
-            }).join("")
-            suggBox.innerHTML = arr
-            let allList = suggBox.querySelectorAll("span")
-            for (let i = 0; i < allList.length; i++) {
-                allList[i].addEventListener("click", select)
-            }
 
-        }
-        inputBox.onkeyup = (e) => {
-            let userData = e.target.value
-            let emptyArray = []
-            if (userData) {
-                emptyArray = seto.filter(qq => {
-                    return qq.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-                })
-                emptyArray = emptyArray.map(qq => {
-                    return qq = '<span>' + qq + '</span>'
-                })
-                console.log(emptyArray, 88)
-                    // searchWrapper.classList.add("active")
-                showSeto(emptyArray)
-                let allList = suggBox.querySelectorAll("span")
-                for (let i = 0; i < allList.length; i++) {
-                    allList[i].addEventListener("click", select)
-
-                }
-            } else {
-
-                // searchWrapper.classList.remove("active")
-            }
-        }
-
-        function select(element) {
-            let selectUserData = element.target.textContent;
-            inputBox.value = selectUserData
-            fetchWeatherData(inputBox.value)
-            showSeto("")
-
-        }
-
-        function showSeto(list) {
-            let listData;
-            if (!list.length) {
-                userValue = inputBox.value
-                listData = ""
-            } else {
-                listData = list.join("")
-            }
-            suggBox.innerHTML = listData
-        }
-    })
-    //     .catch(
-    //         e => console.log(e)
-    //     )
+    })       
 ////////////////////
 function fetchWeatherData(searchTerm) {
   let lat,
