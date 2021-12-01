@@ -75,7 +75,7 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
             fetchWeatherData(inputBox.value)
             showSeto("")
         }
-        
+
         function showSeto(list) {
             let listData;
             if (!list.length) {
@@ -86,12 +86,18 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
             }
             suggBox.innerHTML = listData
         }
+        //remove list when click out input
+        document.body.onclick = (e) => {
+        if (!e.target.matches(".recommends span, form input")) {
+            suggBox.innerHTML = "";
+        }
+        };
+        
     })
         .catch(
             e => document.write(e)
-        )
-       
-////////////////////
+            )
+        ////////////////////
 function fetchWeatherData(searchTerm) {
   let lat,
     lon,
