@@ -170,6 +170,7 @@
   }
   .image-slide {
     height: 400px;
+    width: 400px;
   }
   .app-content {
     display: flex;
