@@ -25,18 +25,15 @@ window.onload = function () {
         fetchWeatherData(userCity);
       })
     }
-
-    function showError(error) {
+  } else {
+    alert("your browser doesn't support geographic locations")
+  }
+ function showError(error) {
 
       if (error.PERMISSION_DENIED) {
         alert("Please allow access to your location to show your weather data");
       }
     }
-
-  } else {
-    alert("your browser doesn't support geographic locations")
-  }
-
 }
 
 
