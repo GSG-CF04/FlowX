@@ -35,6 +35,20 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
         const searchWrapper = document.querySelector(".input-parent");
         const inputBox = searchWrapper.querySelector("input");
         const suggBox = document.querySelector(".recommends");
+        //when click in the input call the showList function
+        inputBox.addEventListener("click", showList)
+        //show the autocomplet list 
+        function showList() {
+            let arr = seto.map(qq => {
+                return qq = '<span>' + qq + '</span>'
+            }).join("")
+            suggBox.innerHTML = arr
+            let allList = suggBox.querySelectorAll("span")
+            for (let i = 0; i < allList.length; i++) {
+                allList[i].addEventListener("click", select)
+            }
+
+        }
 
 
     })       
