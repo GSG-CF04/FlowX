@@ -8,7 +8,7 @@ let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
 let userLat, userLon, userCity;
-let apiKey = "d0139168498c4f66d3fb31b4d374f145"
+let apiKey = "d0139168498c4f66d3fb31b4d374f145";
 
 window.onload = function () {
   if (navigator.geolocation) {
@@ -19,22 +19,23 @@ window.onload = function () {
       userLon = userLocation.coords.longitude;
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
-      ).then((response) => response.json()).then((userWeather) => {
-        userCity = userWeather.name;
-        fetchWeatherData(userCity);
-      })
+      )
+        .then((response) => response.json())
+        .then((userWeather) => {
+          userCity = userWeather.name;
+          fetchWeatherData(userCity);
+        });
     }
   } else {
-    alert("your browser doesn't support geographic locations")
+    alert("your browser doesn't support geographic locations");
   }
 
   function showError(error) {
-
     if (error.PERMISSION_DENIED) {
       alert("Please allow access to your location to show your weather data");
     }
   }
-}
+};
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -54,17 +55,19 @@ function fetchWeatherData(searchTerm) {
     dailyData,
     apiKey = "d0139168498c4f66d3fb31b4d374f145";
   fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
-    )
+    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
+  )
     .then((res) => res.json())
     .then((weatherInfo) => {
+      // Show loader
+      controlLoader();
       lat = weatherInfo.coord.lat;
       lon = weatherInfo.coord.lon;
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-        )
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+      )
         .then((info) => info.json())
         .then((db) => {
           let currente = db.current.weather[0].main; //give the weather condition
@@ -128,7 +131,7 @@ function fetchWeatherData(searchTerm) {
           //the function well give the random images
           function randomImages() {
             let random = Math.floor(Math.random() * describ.length);
-            document.querySelector("img").src = describ[random];
+            document.querySelector(".header img").src = describ[random];
           }
           currentDayData = db.current;
           dailyData = db.daily.slice(1, 7);
@@ -137,10 +140,16 @@ function fetchWeatherData(searchTerm) {
         });
     })
     // If the search term is INVALID, a popup will show to ask the user to re-write a VALID input
-    .catch((err) => placeNotFound(searchTerm));
+    .catch((err) => {
+      // Remove loader if the search filed content is INVALID input
+      controlLoader();
+      placeNotFound(searchTerm);
+    });
 }
 
 function renderCurrentDayData(data, countryName, cityName) {
+  // Remove loader from screen
+  controlLoader();
   // Remove previous data if the search term is valid
   weekInfoContainer.innerHTML = "";
   if (document.querySelector(".current-day"))
@@ -299,5 +308,16 @@ function dayFromMilliSeconds(ms) {
 
 function getCelsiusFromKelvin(temp) {
   return (temp - 273.15).toFixed(2);
+}
 
+// Shows loader if loader element has "display: none;" property and remove it if it doesn't have "display:none";
+function controlLoader() {
+  let loader = document.querySelector(".loader");
+  let style = window.getComputedStyle(loader);
+  let display = style.getPropertyValue("display");
+  if (display !== "none") {
+    loader.style.display = "none";
+  } else {
+    loader.style.display = "flex";
+  }
 }
