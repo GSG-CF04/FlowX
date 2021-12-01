@@ -7,21 +7,35 @@ weekInfo.className = "weather-info";
 let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
-let userLat,userLon,userCity;
-let apiKey="d0139168498c4f66d3fb31b4d374f145"
+let userLat, userLon, userCity;
+let apiKey = "d0139168498c4f66d3fb31b4d374f145"
 
 window.onload = function () {
-    navigator.geolocation.getCurrentPosition(getUserLocationWeather);
-    function getUserLocationWeather(userLocation){
-        userLat=userLocation.coords.latitude;
-        userLon=userLocation.coords.longitude;
-        fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
-          ).then((response)=>response.json()).then((userWeather) => {
-              userCity=userWeather.name;
-              fetchWeatherData(userCity);
-          })
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getUserLocationWeather, showError);
+
+    function getUserLocationWeather(userLocation) {
+      userLat = userLocation.coords.latitude;
+      userLon = userLocation.coords.longitude;
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
+      ).then((response) => response.json()).then((userWeather) => {
+        userCity = userWeather.name;
+        fetchWeatherData(userCity);
+      })
     }
+
+    function showError(error) {
+
+      if (error.PERMISSION_DENIED) {
+        alert("Please allow access to your location to show your weather data");
+      }
+    }
+
+  } else {
+    alert("your browser doesn't support geographic locations")
+  }
+
 }
 
 inputField.addEventListener("keypress", (e) => {
@@ -43,8 +57,8 @@ function fetchWeatherData(searchTerm) {
     dailyData,
     apiKey = "d0139168498c4f66d3fb31b4d374f145";
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
-  )
+      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
+    )
     .then((res) => res.json())
     .then((weatherInfo) => {
       lat = weatherInfo.coord.lat;
@@ -52,8 +66,8 @@ function fetchWeatherData(searchTerm) {
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-      )
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+        )
         .then((info) => info.json())
         .then((db) => {
           currentDayData = db.current;
