@@ -31,6 +31,7 @@ function fetchWeatherData(searchTerm) {
   )
     .then((res) => res.json())
     .then((weatherInfo) => {
+      controlLoader();
       lat = weatherInfo.coord.lat;
       lon = weatherInfo.coord.lon;
       countryName = weatherInfo.sys.country;
@@ -110,10 +111,14 @@ function fetchWeatherData(searchTerm) {
         });
     })
     // If the search term is INVALID, a popup will show to ask the user to re-write a VALID input
-    .catch((err) => placeNotFound(searchTerm));
+    .catch((err) => {
+      controlLoader();
+      placeNotFound(searchTerm);
+    });
 }
 
 function renderCurrentDayData(data, countryName, cityName) {
+  controlLoader();
   // Remove previous data if the search term is valid
   weekInfoContainer.innerHTML = "";
   if (document.querySelector(".current-day"))
@@ -272,4 +277,15 @@ function dayFromMilliSeconds(ms) {
 
 function getCelsiusFromKelvin(temp) {
   return (temp - 273.15).toFixed(2);
+}
+
+function controlLoader() {
+  let loader = document.querySelector(".loader");
+  let style = window.getComputedStyle(loader);
+  let display = style.getPropertyValue("display");
+  if (display !== "none") {
+    loader.style.display = "none";
+  } else {
+    loader.style.display = "flex";
+  }
 }
