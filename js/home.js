@@ -60,8 +60,6 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
                 emptyArray = emptyArray.map(qq => {
                     return qq = '<span>' + qq + '</span>'
                 })
-                console.log(emptyArray, 88)
-                    // searchWrapper.classList.add("active")
                 showSeto(emptyArray)
                 let allList = suggBox.querySelectorAll("span")
                 for (let i = 0; i < allList.length; i++) {
@@ -70,9 +68,29 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
                 }
             }
         }
-
-
-    })       
+        //select the element when click and put it in input
+        function select(element) {
+            let selectUserData = element.target.textContent;
+            inputBox.value = selectUserData
+            fetchWeatherData(inputBox.value)
+            showSeto("")
+        }
+        
+        function showSeto(list) {
+            let listData;
+            if (!list.length) {
+                userValue = inputBox.value
+                listData = ""
+            } else {
+                listData = list.join("")
+            }
+            suggBox.innerHTML = listData
+        }
+    })
+        .catch(
+            e => document.write(e)
+        )
+       
 ////////////////////
 function fetchWeatherData(searchTerm) {
   let lat,
