@@ -49,6 +49,27 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
             }
 
         }
+        //autocomplet when the user write
+        inputBox.onkeyup = (e) => {
+            let userData = e.target.value
+            let emptyArray = []
+            if (userData) {
+                emptyArray = seto.filter(qq => {
+                    return qq.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+                })
+                emptyArray = emptyArray.map(qq => {
+                    return qq = '<span>' + qq + '</span>'
+                })
+                console.log(emptyArray, 88)
+                    // searchWrapper.classList.add("active")
+                showSeto(emptyArray)
+                let allList = suggBox.querySelectorAll("span")
+                for (let i = 0; i < allList.length; i++) {
+                    allList[i].addEventListener("click", select)
+
+                }
+            }
+        }
 
 
     })       
