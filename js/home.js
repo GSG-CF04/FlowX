@@ -7,6 +7,7 @@ weekInfo.className = "weather-info";
 let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
+
 let userLat, userLon, userCity;
 let apiKey = "d0139168498c4f66d3fb31b4d374f145"
 
@@ -38,6 +39,7 @@ window.onload = function () {
 
 }
 
+
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -57,6 +59,7 @@ function fetchWeatherData(searchTerm) {
     dailyData,
     apiKey = "d0139168498c4f66d3fb31b4d374f145";
   fetch(
+
       `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
     )
     .then((res) => res.json())
@@ -66,8 +69,9 @@ function fetchWeatherData(searchTerm) {
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-        )
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+      )
+
         .then((info) => info.json())
         .then((db) => {
           currentDayData = db.current;
@@ -239,4 +243,7 @@ function dayFromMilliSeconds(ms) {
 
 function getCelsiusFromKelvin(temp) {
   return (temp - 273.15).toFixed(2);
+
 }
+
+

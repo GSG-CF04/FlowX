@@ -142,7 +142,7 @@ form .recommends span:hover {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  width: max(285px, 50vw);
+  width: max(300px, 50vw);
   max-width: 100%;
   box-shadow: 0 0 20px rgb(0 0 0 / 0.2);
 }
@@ -188,7 +188,7 @@ form .recommends span:hover {
 
 /* Week Data */
 .week-data {
-  width: max(285px, 50vw);
+  width: max(300px, 50vw);
   margin: 110px auto 20px auto;
   max-width: 100%;
   position: relative;
@@ -238,7 +238,7 @@ form .recommends span:hover {
   justify-content: space-between;
   flex-wrap: wrap;
   max-width: 100%;
-  width: max(285px, 50vw);
+  width: max(300px, 50vw);
   margin: 50px auto 10px;
 }
 
