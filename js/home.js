@@ -7,7 +7,33 @@ weekInfo.className = "weather-info";
 let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
-
+let userLat, userLon, userCity;
+let apiKey = "d0139168498c4f66d3fb31b4d374f145"
+//load user's location weather on page load
+window.onload = function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getUserLocationWeather, showError);
+    //take permission to access user's location
+    function getUserLocationWeather(userLocation) {
+      userLat = userLocation.coords.latitude;
+      userLon = userLocation.coords.longitude;
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
+      ).then((response) => response.json()).then((userWeather) => {
+        userCity = userWeather.name;
+        fetchWeatherData(userCity);
+      })
+    }
+  } else {
+    alert("your browser doesn't support geographic locations")
+  }
+  //error function to show an alert when user denies access
+  function showError(error) {
+    if (error.PERMISSION_DENIED) {
+      alert("Please allow access to your location to show your weather data");
+    }
+  }
+}
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -27,8 +53,8 @@ function fetchWeatherData(searchTerm) {
     dailyData,
     apiKey = "d0139168498c4f66d3fb31b4d374f145";
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
-  )
+      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
+    )
     .then((res) => res.json())
     .then((weatherInfo) => {
       // Shows loading screen while fetching data
@@ -38,8 +64,8 @@ function fetchWeatherData(searchTerm) {
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-      )
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+        )
         .then((info) => info.json())
         .then((db) => {
           let currente = db.current.weather[0].main; //give the weather condition
