@@ -132,7 +132,10 @@ form input {
   -ms-border-radius: 100vh;
   -o-border-radius: 100vh;
 }
-
+form .recommends {
+  max-height: 23.2rem;
+  overflow: hidden;
+}
 form .recommends span {
   display: block;
   padding: 10px;

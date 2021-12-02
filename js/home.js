@@ -43,7 +43,90 @@ inputField.addEventListener("keypress", (e) => {
     }
   }
 });
+////////////////////fetch the API of  the city and cuntry
+fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
+  .then(
+    (res) => res.json() //json the data
+  )
+  .then((data1) => {
+    let arr = []; //make the emputy array to push the data to it
+    //for loop to push data
+    for (key of data1.data) {
+      arr.push(key.city);
+      arr.push(key.country);
+    }
+    //to remove the same data
+    let seto = [...new Set(arr)];
+    //select the element
+    const searchWrapper = document.querySelector(".input-parent");
+    const inputBox = searchWrapper.querySelector("input");
+    const suggBox = document.querySelector(".recommends");
+    //when click in the input call the showList function
+    inputBox.addEventListener("click", showList);
+    //show the autocomplet list
+    function showList() {
+      // suggBox.appendChild(span)
+      let arr = seto
+        .map((element) => {
+          const spanTag = document.createElement("span");
+          let spanCon = document.createTextNode(element);
+          spanTag.appendChild(spanCon);
+          return suggBox.appendChild(spanTag);
+        })
+        .join("");
+      let allList = suggBox.querySelectorAll("span");
+      for (let i = 0; i < allList.length; i++) {
+        allList[i].addEventListener("click", select);
+      }
+    }
+    //autocomplet when the user write
+    inputBox.onkeyup = (element) => {
+      let userData = element.target.value;
+      let emptyArray = [];
+      if (userData) {
+        emptyArray = seto.filter((element) => {
+          return element
+            .toLocaleLowerCase()
+            .startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((element) => {
+          return (element = "<span>" + element + "</span>");
+        });
+        showSeto(emptyArray);
+        let allList = suggBox.querySelectorAll("span");
+        for (let i = 0; i < allList.length; i++) {
+          allList[i].addEventListener("click", select);
+        }
+      }
+    };
 
+    function select(element) {
+      let selectUserData = element.target.textContent;
+      inputBox.value = selectUserData;
+      fetchWeatherData(inputBox.value);
+      suggBox.textContent = "";
+    }
+
+    function showSeto(list) {
+      let listData;
+      if (!list.length) {
+        userValue = inputBox.value;
+        listData = "";
+      } else {
+        listData = list.join("");
+      }
+      suggBox.innerHTML = listData;
+    }
+
+    //remove list when click out input
+    document.body.onclick = (e) => {
+      if (!e.target.matches(".recommends span, form input")) {
+        suggBox.textContent = "";
+      }
+    };
+  })
+  .catch((erore) => document.write(erore));
+////////////////////
 function fetchWeatherData(searchTerm) {
   let lat,
     lon,
