@@ -103,12 +103,19 @@ function fetchWeatherData(searchTerm) {
           //the function well give the random images
           function randomImages() {
             let random = Math.floor(Math.random() * describ.length);
-            document.querySelector("img").src = describ[random];
+            document.querySelector(".header img").src = describ[random];
           }
           currentDayData = db.current;
           dailyData = db.daily.slice(1, 7);
-          renderCurrentDayData(currentDayData, countryName, cityName);
-          renderDailyData(dailyData);
+          // Wait 1 second to render elements
+          setTimeout(
+            renderCurrentDayData,
+            1000,
+            currentDayData,
+            countryName,
+            cityName
+          );
+          setTimeout(renderDailyData, 1000, dailyData);
         });
     })
     // If the search term is INVALID, a popup will show to ask the user to re-write a VALID input
