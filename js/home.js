@@ -31,6 +31,7 @@ function fetchWeatherData(searchTerm) {
   )
     .then((res) => res.json())
     .then((weatherInfo) => {
+      // Shows loading screen while fetching data
       controlLoader();
       lat = weatherInfo.coord.lat;
       lon = weatherInfo.coord.lon;
@@ -112,12 +113,14 @@ function fetchWeatherData(searchTerm) {
     })
     // If the search term is INVALID, a popup will show to ask the user to re-write a VALID input
     .catch((err) => {
+      // Removes the loading screen if the search term is INVALID
       controlLoader();
       placeNotFound(searchTerm);
     });
 }
 
 function renderCurrentDayData(data, countryName, cityName) {
+  // Removes the loading screen when the data are available
   controlLoader();
   // Remove previous data if the search term is valid
   weekInfoContainer.innerHTML = "";
@@ -279,6 +282,7 @@ function getCelsiusFromKelvin(temp) {
   return (temp - 273.15).toFixed(2);
 }
 
+// Adds the loader while fetching data, and removes it when the data are available
 function controlLoader() {
   let loader = document.querySelector(".loader");
   let style = window.getComputedStyle(loader);
