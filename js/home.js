@@ -46,7 +46,7 @@ inputField.addEventListener("keypress", (e) => {
 ////////////////////fetch the API of  the city and cuntry
 fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
   .then(
-    (e) => e.json() //json the data
+    (res) => res.json() //json the data
   )
   .then((data1) => {
     let arr = []; //make the emputy array to push the data to it
