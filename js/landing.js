@@ -1,3 +1,10 @@
+var goButton = document.getElementById("start-btn");
+goButton.addEventListener('click', toHomePage);
+
+function toHomePage() {
+    location.href = "html/home.html";
+
+}
 let slideIndex = 0;
 let showSlide = (n) => {
   let slidesArr = document.getElementsByClassName("slider-image"); //get the vectors

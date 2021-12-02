@@ -7,7 +7,33 @@ weekInfo.className = "weather-info";
 let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
-
+let userLat, userLon, userCity;
+let apiKey = "d0139168498c4f66d3fb31b4d374f145"
+//load user's location weather on page load
+window.onload = function () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getUserLocationWeather, showError);
+    //take permission to access user's location
+    function getUserLocationWeather(userLocation) {
+      userLat = userLocation.coords.latitude;
+      userLon = userLocation.coords.longitude;
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
+      ).then((response) => response.json()).then((userWeather) => {
+        userCity = userWeather.name;
+        fetchWeatherData(userCity);
+      })
+    }
+  } else {
+    alert("your browser doesn't support geographic locations")
+  }
+  //error function to show an alert when user denies access
+  function showError(error) {
+    if (error.PERMISSION_DENIED) {
+      alert("Please allow access to your location to show your weather data");
+    }
+  }
+}
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -17,7 +43,90 @@ inputField.addEventListener("keypress", (e) => {
     }
   }
 });
+////////////////////fetch the API of  the city and cuntry
+fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
+  .then(
+    (res) => res.json() //json the data
+  )
+  .then((data1) => {
+    let arr = []; //make the emputy array to push the data to it
+    //for loop to push data
+    for (key of data1.data) {
+      arr.push(key.city);
+      arr.push(key.country);
+    }
+    //to remove the same data
+    let seto = [...new Set(arr)];
+    //select the element
+    const searchWrapper = document.querySelector(".input-parent");
+    const inputBox = searchWrapper.querySelector("input");
+    const suggBox = document.querySelector(".recommends");
+    //when click in the input call the showList function
+    inputBox.addEventListener("click", showList);
+    //show the autocomplet list
+    function showList() {
+      // suggBox.appendChild(span)
+      let arr = seto
+        .map((element) => {
+          const spanTag = document.createElement("span");
+          let spanCon = document.createTextNode(element);
+          spanTag.appendChild(spanCon);
+          return suggBox.appendChild(spanTag);
+        })
+        .join("");
+      let allList = suggBox.querySelectorAll("span");
+      for (let i = 0; i < allList.length; i++) {
+        allList[i].addEventListener("click", select);
+      }
+    }
+    //autocomplet when the user write
+    inputBox.onkeyup = (element) => {
+      let userData = element.target.value;
+      let emptyArray = [];
+      if (userData) {
+        emptyArray = seto.filter((element) => {
+          return element
+            .toLocaleLowerCase()
+            .startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((element) => {
+          return (element = "<span>" + element + "</span>");
+        });
+        showSeto(emptyArray);
+        let allList = suggBox.querySelectorAll("span");
+        for (let i = 0; i < allList.length; i++) {
+          allList[i].addEventListener("click", select);
+        }
+      }
+    };
 
+    function select(element) {
+      let selectUserData = element.target.textContent;
+      inputBox.value = selectUserData;
+      fetchWeatherData(inputBox.value);
+      suggBox.textContent = "";
+    }
+
+    function showSeto(list) {
+      let listData;
+      if (!list.length) {
+        userValue = inputBox.value;
+        listData = "";
+      } else {
+        listData = list.join("");
+      }
+      suggBox.innerHTML = listData;
+    }
+
+    //remove list when click out input
+    document.body.onclick = (e) => {
+      if (!e.target.matches(".recommends span, form input")) {
+        suggBox.textContent = "";
+      }
+    };
+  })
+  .catch((erore) => document.write(erore));
+////////////////////
 function fetchWeatherData(searchTerm) {
   let lat,
     lon,
@@ -27,17 +136,19 @@ function fetchWeatherData(searchTerm) {
     dailyData,
     apiKey = "d0139168498c4f66d3fb31b4d374f145";
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
-  )
+      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
+    )
     .then((res) => res.json())
     .then((weatherInfo) => {
+      // Shows loading screen while fetching data
+      controlLoader();
       lat = weatherInfo.coord.lat;
       lon = weatherInfo.coord.lon;
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-      )
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+        )
         .then((info) => info.json())
         .then((db) => {
           let currente = db.current.weather[0].main; //give the weather condition
@@ -101,19 +212,32 @@ function fetchWeatherData(searchTerm) {
           //the function well give the random images
           function randomImages() {
             let random = Math.floor(Math.random() * describ.length);
-            document.querySelector("img").src = describ[random];
+            document.querySelector(".header img").src = describ[random];
           }
           currentDayData = db.current;
           dailyData = db.daily.slice(1, 7);
-          renderCurrentDayData(currentDayData, countryName, cityName);
-          renderDailyData(dailyData);
+          // Wait 1 second to render elements
+          setTimeout(
+            renderCurrentDayData,
+            1000,
+            currentDayData,
+            countryName,
+            cityName
+          );
+          setTimeout(renderDailyData, 1000, dailyData);
         });
     })
     // If the search term is INVALID, a popup will show to ask the user to re-write a VALID input
-    .catch((err) => placeNotFound(searchTerm));
+    .catch((err) => {
+      // Removes the loading screen if the search term is INVALID
+      controlLoader();
+      placeNotFound(searchTerm);
+    });
 }
 
 function renderCurrentDayData(data, countryName, cityName) {
+  // Removes the loading screen when the data are available
+  controlLoader();
   // Remove previous data if the search term is valid
   weekInfoContainer.innerHTML = "";
   if (document.querySelector(".current-day"))
@@ -272,4 +396,16 @@ function dayFromMilliSeconds(ms) {
 
 function getCelsiusFromKelvin(temp) {
   return (temp - 273.15).toFixed(2);
+}
+
+// Adds the loader while fetching data, and removes it when the data are available
+function controlLoader() {
+  let loader = document.querySelector(".loader");
+  let style = window.getComputedStyle(loader);
+  let display = style.getPropertyValue("display");
+  if (display !== "none") {
+    loader.style.display = "none";
+  } else {
+    loader.style.display = "flex";
+  }
 }
