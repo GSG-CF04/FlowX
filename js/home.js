@@ -7,9 +7,11 @@ weekInfo.className = "weather-info";
 let weekInfoContainer = document.createElement("div");
 weekInfoContainer.className = "container";
 weekInfo.append(weekInfoContainer);
+
+// load user's location weather on page load
 let userLat, userLon, userCity;
-let apiKey = "d0139168498c4f66d3fb31b4d374f145"
-//load user's location weather on page load
+const apiKey = "d0139168498c4f66d3fb31b4d374f145";
+
 window.onload = function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getUserLocationWeather, showError);
@@ -19,51 +21,59 @@ window.onload = function () {
       userLon = userLocation.coords.longitude;
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${userLat}&lon=${userLon}&appid=${apiKey}`
-      ).then((response) => response.json()).then((userWeather) => {
-        userCity = userWeather.name;
-        fetchWeatherData(userCity);
-      })
+      )
+        .then((response) => response.json())
+        .then((userWeather) => {
+          userCity = userWeather.name;
+          fetchWeatherData(userCity);
+        });
     }
   } else {
-    alert("your browser doesn't support geographic locations")
+    alert("your browser doesn't support geographic locations");
   }
-  //error function to show an alert when user denies access
+
+  // error function to show an alert when user denies access
   function showError(error) {
     if (error.PERMISSION_DENIED) {
       alert("Please allow access to your location to show your weather data");
     }
   }
-}
+};
+
+// Show weather info when searching for a specific place
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
     if (e.target.value.trim() !== "") {
       let searchTerm = e.target.value;
+      // Search for Palestine when typing 'State Of Palestine'
+      if (searchTerm.toLowerCase() === "state of palestine")
+        searchTerm = "Palestine";
       fetchWeatherData(searchTerm);
     }
   }
 });
-////////////////////fetch the API of  the city and cuntry
+
+// fetch the API of the city and country
 fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
-  .then(
-    (res) => res.json() //json the data
-  )
+  // json the data
+  .then((res) => res.json())
   .then((data1) => {
-    let arr = []; //make the emputy array to push the data to it
-    //for loop to push data
+    let arr = []; // make the emputy array to push the data to it
+    // for loop to push data
     for (key of data1.data) {
       arr.push(key.city);
       arr.push(key.country);
     }
-    //to remove the same data
+    // to remove the same data
     let seto = [...new Set(arr)];
-    //select the element
+    // select the element
     const searchWrapper = document.querySelector(".input-parent");
     const inputBox = searchWrapper.querySelector("input");
     const suggBox = document.querySelector(".recommends");
-    //when click in the input call the showList function
+    // when click in the input call the showList function
     inputBox.addEventListener("click", showList);
-    //show the autocomplet list
+    // show the autocomplet list
     function showList() {
       // suggBox.appendChild(span)
       let arr = seto
@@ -102,6 +112,9 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
 
     function select(element) {
       let selectUserData = element.target.textContent;
+      // Search for Palestine when typing 'State Of Palestine'
+      if (selectUserData.toLowerCase() === "state of palestine")
+        selectUserData = "Palestine";
       inputBox.value = selectUserData;
       fetchWeatherData(inputBox.value);
       suggBox.textContent = "";
@@ -118,26 +131,20 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
       suggBox.innerHTML = listData;
     }
 
-    //remove list when click out input
+    // remove list when click out input
     document.body.onclick = (e) => {
       if (!e.target.matches(".recommends span, form input")) {
         suggBox.textContent = "";
       }
     };
   })
-  .catch((erore) => document.write(erore));
-////////////////////
+  .catch((erore) => console.log(erore));
+
 function fetchWeatherData(searchTerm) {
-  let lat,
-    lon,
-    countryName,
-    cityName,
-    currentDayData,
-    dailyData,
-    apiKey = "d0139168498c4f66d3fb31b4d374f145";
+  let lat, lon, countryName, cityName, currentDayData, dailyData;
   fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
-    )
+    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}`
+  )
     .then((res) => res.json())
     .then((weatherInfo) => {
       // Shows loading screen while fetching data
@@ -147,11 +154,11 @@ function fetchWeatherData(searchTerm) {
       countryName = weatherInfo.sys.country;
       cityName = weatherInfo.name;
       fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
-        )
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`
+      )
         .then((info) => info.json())
         .then((db) => {
-          let currente = db.current.weather[0].main; //give the weather condition
+          let currente = db.current.weather[0].main; // give the weather condition
           //images show According to the weather
           let images = {
             Rain: [
