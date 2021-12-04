@@ -396,15 +396,12 @@ function renderDailyData(dailyData) {
   });
 }
 
-// TODO: show an error message when a user searchs for a place that is not found
 function placeNotFound(place) {
   let placeName = document.querySelector(".popup-container .popup .place");
   placeName.textContent = place;
   body.classList.add("popup-active");
   body.style.overflowY = "hidden";
   document.querySelector(".popup-container").style.display = "flex";
-  // setTimeout(() => {
-  // }, 300);
 }
 
 function dayFromMilliSeconds(ms) {
