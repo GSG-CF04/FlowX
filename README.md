@@ -32,6 +32,7 @@ Develop a website that provides weather information for any country.
 - Simple UI.
 - Responsive design.
 - Accurate information.
+- Multi-language search.
 - Autocomplete search field.
 - Clear landing page with slider.
 
