@@ -54,6 +54,17 @@ inputField.addEventListener("keypress", (e) => {
   }
 });
 
+// Remove popup Layer when click ok or click on the screen
+document.addEventListener("click", (e) => {
+  if (!e.target.matches(".popup-container, .popup button")) return;
+  body.classList.remove("popup-active");
+  body.style.overflowY = "auto";
+  inputField.select();
+  setTimeout(() => {
+    document.querySelector(".popup-container").style.display = "none";
+  }, 300);
+});
+
 // fetch the API of the city and country
 fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
   // json the data
@@ -385,8 +396,13 @@ function renderDailyData(dailyData) {
   });
 }
 
-// TODO: show an error message when a user searchs for a place that is not found
-function placeNotFound(place) {}
+function placeNotFound(place) {
+  let placeName = document.querySelector(".popup-container .popup .place");
+  placeName.textContent = place;
+  body.classList.add("popup-active");
+  body.style.overflowY = "hidden";
+  document.querySelector(".popup-container").style.display = "flex";
+}
 
 function dayFromMilliSeconds(ms) {
   let days = [
