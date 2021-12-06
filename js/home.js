@@ -1,6 +1,5 @@
 const body = document.body;
 const inputField = document.querySelector(".input-parent input");
-const suggBox = document.querySelector(".recommends");
 let header = document.querySelector(".header");
 let headerImg = document.querySelector(".header img");
 let weekInfo = document.createElement("section");
@@ -52,8 +51,6 @@ inputField.addEventListener("keypress", (e) => {
         searchTerm = "Palestine";
       fetchWeatherData(searchTerm);
     }
-    inputField.value = "";
-    suggBox.textContent = "";
   }
 });
 
@@ -102,6 +99,8 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
       for (let i = 0; i < allList.length; i++) {
         allList[i].addEventListener("click", select);
       }
+      //focus input value
+      this.select();
     }
     //autocomplet when the user write
     inputBox.onkeyup = (element) => {
@@ -132,7 +131,6 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
       inputBox.value = selectUserData;
       fetchWeatherData(inputBox.value);
       suggBox.textContent = "";
-      inputBox.value = "";
     }
 
     function showSeto(list) {
@@ -150,7 +148,6 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
     document.body.onclick = (e) => {
       if (!e.target.matches(".recommends span, form input")) {
         suggBox.textContent = "";
-        inputBox.value = "";
       }
     };
   })
