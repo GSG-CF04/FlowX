@@ -129,6 +129,7 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
       inputBox.value = selectUserData;
       fetchWeatherData(inputBox.value);
       suggBox.textContent = "";
+      inputBox.value=""
     }
 
     function showSeto(list) {
@@ -146,6 +147,7 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
     document.body.onclick = (e) => {
       if (!e.target.matches(".recommends span, form input")) {
         suggBox.textContent = "";
+        inputBox.value=""
       }
     };
   })
