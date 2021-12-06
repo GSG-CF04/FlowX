@@ -51,6 +51,7 @@ inputField.addEventListener("keypress", (e) => {
         searchTerm = "Palestine";
       fetchWeatherData(searchTerm);
     }
+    inputField.value=""
   }
 });
 
