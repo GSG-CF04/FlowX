@@ -1,5 +1,6 @@
 const body = document.body;
 const inputField = document.querySelector(".input-parent input");
+const suggBox = document.querySelector(".recommends");
 let header = document.querySelector(".header");
 let headerImg = document.querySelector(".header img");
 let weekInfo = document.createElement("section");
@@ -52,6 +53,7 @@ inputField.addEventListener("keypress", (e) => {
       fetchWeatherData(searchTerm);
     }
     inputField.value=""
+    suggBox.textContent=""
   }
 });
 
