@@ -22,18 +22,27 @@ body {
 }
 
 @media (min-width: 768px) {
+  *{
+    font-size: 17px;
+  }
   .container {
     width: 750px;
   }
 }
 
 @media (min-width: 992px) {
+  *{
+    font-size: 18px;
+  }
   .container {
     width: 970px;
   }
 }
 
 @media (min-width: 1200px) {
+  *{
+    font-size: 20px;
+  }
   .container {
     width: 1170px;
   }
@@ -296,6 +305,12 @@ form .recommends span:hover {
   display: block;
   font-size: 1.3rem;
 }
+.temp span, sup{
+  font-size: 2.5rem;
+}
+sup{
+  font-size: 2rem;
+}
 
 .current-day img {
   width: 70px;
@@ -338,13 +353,14 @@ form .recommends span:hover {
 
 .week-data .items {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 20px;
+  min-width: 126px;
 }
 
 .week-data .items .day-week {
-  width: 88px;
+  min-width:88px;
 }
 
 .week-data .items .logo {
@@ -363,7 +379,9 @@ form .recommends span:hover {
   height: 50px;
   object-fit: cover;
 }
-
+.temp{
+  min-width: 126px;
+}
 /* Additional Data */
 .icons-contanier {
   display: flex;
@@ -394,7 +412,7 @@ form .recommends span:hover {
 }
 
 .icons-contanier > div .num {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .icons-contanier > div .label {
