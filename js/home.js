@@ -99,6 +99,8 @@ fetch("https://countriesnow.space/api/v0.1/countries/population/cities")
       for (let i = 0; i < allList.length; i++) {
         allList[i].addEventListener("click", select);
       }
+      //focus input value
+      this.select();
     }
     //autocomplet when the user write
     inputBox.onkeyup = (element) => {
