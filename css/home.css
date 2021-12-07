@@ -22,18 +22,30 @@ body {
 }
 
 @media (min-width: 768px) {
+  * {
+    font-size: 17px;
+  }
+
   .container {
     width: 750px;
   }
 }
 
 @media (min-width: 992px) {
+  * {
+    font-size: 18px;
+  }
+
   .container {
     width: 970px;
   }
 }
 
 @media (min-width: 1200px) {
+  * {
+    font-size: 20px;
+  }
+
   .container {
     width: 1170px;
   }
@@ -231,10 +243,12 @@ form input {
   -ms-border-radius: 100vh;
   -o-border-radius: 100vh;
 }
+
 form .recommends {
   max-height: 23.2rem;
   overflow: hidden;
 }
+
 form .recommends span {
   display: block;
   padding: 10px;
@@ -297,6 +311,15 @@ form .recommends span:hover {
   font-size: 1.3rem;
 }
 
+.temp span,
+sup {
+  font-size: 2.5rem;
+}
+
+sup {
+  font-size: 2rem;
+}
+
 .current-day img {
   width: 70px;
   height: 70px;
@@ -341,10 +364,11 @@ form .recommends span:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  min-width: 126px;
 }
 
 .week-data .items .day-week {
-  width: 88px;
+  min-width: 88px;
 }
 
 .week-data .items .logo {
@@ -364,6 +388,10 @@ form .recommends span:hover {
   object-fit: cover;
 }
 
+.temp {
+  min-width: 126px;
+}
+
 /* Additional Data */
 .icons-contanier {
   display: flex;
@@ -380,7 +408,7 @@ form .recommends span:hover {
   object-fit: cover;
 }
 
-.icons-contanier > div {
+.icons-contanier>div {
   width: calc(100% / 2 - 40px);
   height: 100px;
   border-radius: 30px 10px 30px 10px;
@@ -393,11 +421,11 @@ form .recommends span:hover {
   padding: 10px;
 }
 
-.icons-contanier > div .num {
-  font-size: 1.2rem;
+.icons-contanier>div .num {
+  font-size: 1rem;
 }
 
-.icons-contanier > div .label {
+.icons-contanier>div .label {
   display: none;
 }
 
@@ -419,6 +447,7 @@ form .recommends span:hover {
     flex-direction: row-reverse;
     margin-top: 100px;
   }
+
   .week-data,
   .additional-data {
     width: 40%;
@@ -438,7 +467,7 @@ form .recommends span:hover {
     -o-transform: translateY(50%);
   }
 
-  .icons-contanier > div {
+  .icons-contanier>div {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -447,7 +476,7 @@ form .recommends span:hover {
     padding: 20px;
   }
 
-  .icons-contanier > div .label {
+  .icons-contanier>div .label {
     display: block;
   }
 
